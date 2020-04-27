@@ -1118,7 +1118,7 @@
     </column>
     <column id="280" parent="278" name="year">
       <Position>2</Position>
-      <DataType>varchar(120)|0s</DataType>
+      <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1131,6 +1131,7 @@
     <column id="282" parent="278" name="model">
       <Position>4</Position>
       <DataType>varchar(120)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="283" parent="278" name="PRIMARY">

@@ -38,10 +38,9 @@
 </header>
 <br>
 <div class="row">
-    <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
     <div class="container">
-        <h3 class="text-center">Search of Vehicles</h3>
+        <h3 class="text-center"><%=request.getParameter("item").substring(0, 1).toUpperCase() +  request.getParameter("item").substring(1)%> Search of Vehicles</h3>
         <hr>
 
         <br>

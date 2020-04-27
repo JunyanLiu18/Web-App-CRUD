@@ -55,7 +55,6 @@ public class VehicleServlet extends HttpServlet {
                 case "/search-nav":
                     chooseSearch(request, response);
                     break;
-
                 default:
                     listVehicle(request, response);
                     break;
@@ -106,9 +105,8 @@ public class VehicleServlet extends HttpServlet {
         int year = Integer.parseInt(request.getParameter("year"));
         String make = request.getParameter("make");
         String model = request.getParameter("model");
-
-        Vehicle book = new Vehicle(id, year, make, model);
-        vehicleDAO.updateYear(book);
+        Vehicle vehicle = new Vehicle(id, year, make, model);
+        vehicleDAO.updateYear(vehicle);
         response.sendRedirect("list");
     }
     //delete the vehicle value

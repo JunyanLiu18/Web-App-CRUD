@@ -46,13 +46,14 @@ public class VehicleDAO {
 
     public void insertVehicle(Vehicle vehicle) throws SQLException {
         System.out.println(INSERT_VEHICLE_SQL);
-        // try-with-resource statement will auto close the connection.
+        //connect
         try (Connection connection = getConnection();
+             //create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VEHICLE_SQL)) {
             preparedStatement.setInt(1, vehicle.getYear());
             preparedStatement.setString(2, vehicle.getMake());
             preparedStatement.setString(3, vehicle.getModel());
-            System.out.println(preparedStatement);
+            //System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -61,16 +62,11 @@ public class VehicleDAO {
 
     public Vehicle selectVehicle(int id) {
         Vehicle vehicle = null;
-        // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_VEHICLE_BY_ID);) {
             preparedStatement.setInt(1, id);
-            System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
+            //System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
-
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int year = rs.getInt("year");
                 String make = rs.getString("make");
@@ -142,19 +138,11 @@ public class VehicleDAO {
 
 
     public List<Vehicle> selectAllVehicles() {
-
-        // using try-with-resources to avoid closing resources (boiler plate code)
         List<Vehicle> vehicles = new ArrayList<>();
-        // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
-
-             // Step 2:Create a statement using connection object
+       try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_VEHICLES);) {
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
-
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int year = rs.getInt("year");
@@ -173,6 +161,7 @@ public class VehicleDAO {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_VEHICLES_SQL);) {
             statement.setInt(1, id);
+            //at least one row updated
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
@@ -186,7 +175,7 @@ public class VehicleDAO {
             statement.setString(2, vehicle.getMake());
             statement.setString(3, vehicle.getModel());
             statement.setInt(4, vehicle.getId());
-
+            //at least one row updated
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
